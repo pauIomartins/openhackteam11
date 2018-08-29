@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minecraft
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: minecraft-app
+  template:
+    metadata:
+      labels:
+        app: minecraft-app
+    spec:
+      containers:
+      - name: minecraft-app
+        image: openhack/minecraft-server:2.0
+        ports:
+        - containerPort: 25565
+          name: game-port
+        - containerPort: 25575
+          name: rcon-port
+        env:
+        - name: EULA
+          value: "TRUE"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: minecraft-service
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 25565
+    name: service-game
+    targetPort: game-port
+  - port: 25575
+    targetPort: rcon-port
+    name: service-rcon
+  selector:
+    app: minecraft-app
