@@ -22,4 +22,5 @@ project.lock.json
 appsettings.json
 local.settings.json
 
-node_modules.vscode
+node_modules
+.vscode
