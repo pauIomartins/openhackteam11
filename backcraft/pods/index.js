@@ -1,5 +1,7 @@
+const logger = require('./logger');
+
 module.exports = function (context, req) {
-    context.log('JavaScript HTTP trigger function processed a request.');
+    logger.init(context, req);
 
     if (req.query.name || (req.body && req.body.name)) {
         context.res = {
