@@ -12,18 +12,32 @@ spec:
       labels:
         app: minecraft-app
     spec:
+      volumes:
+        - name: minecraft-file
+          persistentVolumeClaim:
+            claimName: minefile
       containers:
-      - name: minecraft-app
-        image: openhack/minecraft-server:2.0
-        ports:
-        - containerPort: 25565
-          name: game-port
-        - containerPort: 25575
-          name: rcon-port
-        env:
-        - name: EULA
-          value: "TRUE"
-
+        - name: minecraft-app
+          image: openhack/minecraft-server:2.0
+          volumeMounts:
+          - name: minecraft-file
+            mountPath: /data
+          - name: minecraft-file
+            mountPath: /mods
+          - name: minecraft-file
+            mountPath: /config
+          - name: minecraft-file
+            mountPath: /plugins
+          - name: minecraft-file
+            mountPath: /home/minecraft
+          ports:
+          - containerPort: 25565
+            name: game-port
+          - containerPort: 25575
+            name: rcon-port
+          env:
+          - name: EULA
+            value: "TRUE"
 ---
 apiVersion: v1
 kind: Service
