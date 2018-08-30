@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: minefile
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: minefile
+  resources:
+    requests:
+      storage: 5Gi

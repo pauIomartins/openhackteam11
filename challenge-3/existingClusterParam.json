@@ -1,0 +1,18 @@
+{
+   "$schema": "https://schema.management.azure.com/  schemas/2015-01-01/deploymentParameters.json#",
+   "contentVersion": "1.0.0.0",
+   "parameters": {
+     "aksResourceId": {
+       "value": "/subscriptions/03a6d591-1096-4413-9cf4-ae9bb9a8f348/resourcegroups/minecraft-east/providers/Microsoft.ContainerService/managedClusters/minecluster"
+   },
+   "aksResourceLocation": {
+     "value": "East US"
+   },
+   "workspaceResourceId": {
+     "value": "/subscriptions/03a6d591-1096-4413-9cf4-ae9bb9a8f348/resourceGroups/defaultresourcegroup-eus/providers/Microsoft.OperationalInsights/workspaces/DefaultWorkspace-03a6d591-1096-4413-9cf4-ae9bb9a8f348-EUS"
+   },
+   "workspaceRegion": {
+     "value": "eastus"
+   }
+ }
+}
