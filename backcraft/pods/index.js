@@ -1,19 +1,25 @@
+const methods = require('./methods');
 const logger = require('./logger');
 
-module.exports = function (context, req) {
+module.exports = async function (context, req) {
     logger.init(context, req);
 
-    if (req.query.name || (req.body && req.body.name)) {
-        context.res = {
-            // status: 200, /* Defaults to 200 */
-            body: "Hello " + (req.query.name || req.body.name)
-        };
+    switch(req.method.toUpperCase()) {
+        case 'GET': 
+            context.res = {
+                status: 200,
+                body: await methods.get(),
+            };
+
+            break;
+        default:
+            context.res = {
+                status: 200,
+                body: await methods.get(),
+            };
+
+            break;
     }
-    else {
-        context.res = {
-            status: 400,
-            body: "Please pass a name on the query string or in the request body"
-        };
-    }
+
     context.done();
 };

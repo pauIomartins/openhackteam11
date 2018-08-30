@@ -3,15 +3,13 @@ const {createNewK8sAPIClient} = require('./k8sConfig');
 const {expect} = require('chai');
 
 
-describe.only('Testing the makeK8sAPIClient function', function() {
-    this.timeout(0);
+describe('Testing the makeK8sAPIClient function', function() {
+    this.timeout(15000);
     it('Should return an object with `listNamespacedPod` function', async () => {
         const apiClient = await createNewK8sAPIClient();
 
-        const pods = await  apiClient.api.v1.namespaces.get();
+        const pods = await apiClient.apis.v1.namespaces('default').persistentvolumeclaim.get();
 
-        console.log(JSON.stringify(pods));
-
-        expect(pods.body).to.haveOwnProperty('kind');//.and.be.equal('PodList');
+        expect(pods.body).to.haveOwnProperty('kind').and.be.equal('PersistentVolumeClaimList');
     });
 });

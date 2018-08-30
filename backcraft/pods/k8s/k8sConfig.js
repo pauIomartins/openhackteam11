@@ -14,10 +14,6 @@ module.exports = {
 
         await client.loadSpec();
 
-        const pvcs = await client.apis.apps.v1.namespaces('default').persistenvolumeclaims.get();
-
-        console.log(pvcs);
-
         return client;
     },
 }

@@ -43,6 +43,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: minecraft-service
+  labels:
+    owner: minesoft-corp
 spec:
   type: LoadBalancer
   ports:
