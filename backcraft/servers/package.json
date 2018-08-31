@@ -1,5 +1,5 @@
 {
-  "name": "pods",
+  "name": "servers",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,6 +10,7 @@
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
+    "js-yaml": "3.12.0",
     "kubernetes-client": "6.0.0",
     "ramda": "0.25.0"
   },

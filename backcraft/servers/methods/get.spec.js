@@ -23,7 +23,7 @@ describe('Testing GET function', function () {
     });
 
     it('Testing if `endpoints` object is valid', async () => {
-        // const response = await getFunction();
+        // const response = await getFunction();        
 
         expect(response[0].endpoints).to.be.a('object')
         .and.to.haveOwnProperty('minecraft');

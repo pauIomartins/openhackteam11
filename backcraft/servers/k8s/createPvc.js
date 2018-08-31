@@ -1,11 +1,26 @@
 const {createNewK8sAPIClient} = require('./k8sConfig');
+const {readFileSync} = require('fs');
+const jsToYaml = require('js-yaml');
+const {join} = require('path');
+
 
 module.exports = {
-    createPvc: async (pvcName) => {
+    createPvc: async (pvcName, serviceName) => {
         const apiClient = await createNewK8sAPIClient();
 
-        const pvcs = await apiClient.apis.v1.namespaces('default').persistentvolumeclaim.get();
+        const rawPersistentVolumeClaim = readFileSync(join(__dirname, 'objects','pvc.yml'), 'utf-8');
 
-        console.log(JSON.stringify(pvcs, null, 2));
+        const persistentVolumeClaim = jsToYaml.safeLoad(rawPersistentVolumeClaim);
+
+        persistentVolumeClaim.metadata.name = `${persistentVolumeClaim.metadata.name}-${pvcName}`
+        persistentVolumeClaim.metadata.labels.serviceName = serviceName;
+        
+        const {body} = await apiClient.api.v1.namespace('default').persistentvolumeclaim.post({
+            body: persistentVolumeClaim,
+        });
+
+        return {
+            name: body.metadata.name,
+        };
     },
 };

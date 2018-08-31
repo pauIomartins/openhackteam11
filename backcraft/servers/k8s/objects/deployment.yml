@@ -40,21 +40,3 @@ spec:
           env:
           - name: EULA
             value: "TRUE"
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: minecraft-service
-  labels:
-    owner: minesoft-corp
-spec:
-  type: LoadBalancer
-  ports:
-  - port: 25565
-    name: service-game
-    targetPort: game-port
-  - port: 25575
-    targetPort: rcon-port
-    name: service-rcon
-  selector:
-    app: minecraft-app
