@@ -4,13 +4,13 @@ const {safeLoad} = require('js-yaml');
 const {join} = require('path');
 
 module.exports = {
-    createDeployment: async (deploymentName, serviceName, pvcName) => {
+    createDeployment: async (serviceName, pvcName) => {
         const apiClient = await createNewK8sAPIClient();
         const rawDeployment = readFileSync(join(__dirname, 'objects', 'deployment.yml'), 'utf-8');
 
         const baseDeployment = safeLoad(rawDeployment);
 
-        baseDeployment.metadata.name = `${baseDeployment.metadata.name}-${deploymentName}`; 
+        baseDeployment.metadata.name = `pod-${serviceName}`; 
         baseDeployment.metadata.labels.serviceName = serviceName;
 
         baseDeployment.spec.template.spec.volumes[0].persistentVolumeClaim.claimName = pvcName;

@@ -16,12 +16,12 @@ function returnHTTPResponse(body, status) {
 module.exports = async (context, req) => {
     logger.init(context, req);
 
-    switch(req.method.toUpperCase()) {
-        case 'GET': 
+    switch(req.query.action.toUpperCase()) {
+        case 'LIST': 
             context.res = returnHTTPResponse(await methods.get(), 200);
             break;
 
-        case 'POST': 
+        case 'CREATE': 
             context.res = returnHTTPResponse(await methods.post(), 201);
             break;
 

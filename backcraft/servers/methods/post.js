@@ -1,15 +1,16 @@
+const generateRandomMobName = require('./../utils/generateName');
 const {createDeployment} = require('./../k8s/createDeployment');
 const {createService} = require('./../k8s/createService');
 const {createPvc} = require('./../k8s/createPvc');
 
 module.exports = async () => {
-    const actualTimestamp = new Date().getTime();
+    const serviceName = `${generateRandomMobName()}-${new Date().getTime()}`
 
-    const service = await createService(actualTimestamp);
+    const service = await createService(serviceName);
 
-    const pvc = await createPvc(actualTimestamp, service.name);
+    const pvc = await createPvc(serviceName);
     
-    const deployment = await createDeployment(actualTimestamp, service.name, pvc.name);
+    const deployment = await createDeployment(serviceName, pvc.name);
 
     return {
         deployment,
